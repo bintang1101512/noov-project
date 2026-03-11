@@ -1,0 +1,4 @@
+docker run --name ingest_container `
+--env-file ../.env `
+-v C:\Users\risky\AppData\Roaming\gcloud:/root/.config/gcloud `
+ingestion-app
