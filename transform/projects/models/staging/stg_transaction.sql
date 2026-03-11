@@ -51,7 +51,6 @@ dedup as(
       SAFE_CAST(JSON_VALUE(payload, '$.extraData.density_blackbox') AS FLOAT64) AS density_blackbox,
       SAFE_CAST(JSON_VALUE(payload, '$.extraData.density_config') AS FLOAT64) AS density_config,
       JSON_VALUE(payload, '$.extraData.detail_transaction') AS detail_transaction,
-      JSON_VALUE(payload, '$.extraData.image') AS image,
       SAFE_CAST(JSON_VALUE(payload, '$.fare') AS FLOAT64) AS fare,
       JSON_VALUE(payload, '$.admin_id') AS admin_id,
       SAFE_CAST(JSON_VALUE(payload, '$.uco_price_per_liter') AS FLOAT64) AS uco_price_per_liter,
