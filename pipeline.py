@@ -17,6 +17,11 @@ run_step(
 )
 
 run_step(
+    "ingestion_vp",
+    ["python", "ingestion_vp/main.py"]
+)
+
+run_step(
     "dbt build",
     ["dbt", "build"],
     cwd="transform/projects"

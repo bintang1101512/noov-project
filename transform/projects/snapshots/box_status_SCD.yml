@@ -1,6 +1,6 @@
 snapshots:
   - name: box_status_SCD
-    relation: "{{ ref('stg_box_status') }}"
+    relation: ref('stg_box_status')
     config:
       schema: snapshots
       unique_key: box_id
