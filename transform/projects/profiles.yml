@@ -11,7 +11,7 @@ bintang_dbt_youtube:
       threads: 4
       type: bigquery
   target: dev
-
+  
 projects:
   outputs:
     dev:
