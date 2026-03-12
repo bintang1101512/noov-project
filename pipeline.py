@@ -1,9 +1,23 @@
+from datetime import datetime
 import subprocess
 
-print("Start ingestion")
+def run_step(name, command, cwd=None):
+    print(f"[{datetime.now()}] Start {name}")
+    subprocess.run(command, cwd=cwd, check=True)
+    print(f"[{datetime.now()}] End {name}")
 
-subprocess.run(["python", "ingestion/main.py"], check=True)
+run_step(
+    "ingestion",
+    ["python", "ingestion/main.py"]
+)
 
-print("Start dbt")
+run_step(
+    "ingestion_box",
+    ["python", "ingestion_box/main.py"]
+)
 
-subprocess.run(["dbt", "build"],cwd="transform/projects", check=True)
+run_step(
+    "dbt build",
+    ["dbt", "build"],
+    cwd="transform/projects"
+)
