@@ -6,6 +6,8 @@ def run_step(name, command, cwd=None):
     subprocess.run(command, cwd=cwd, check=True)
     print(f"[{datetime.now()}] End {name}")
 
+now = datetime.now()
+
 run_step(
     "ingestion",
     ["python", "ingestion/main.py"]
@@ -16,10 +18,11 @@ run_step(
     ["python", "ingestion_box/main.py"]
 )
 
-run_step(
-    "ingestion_vp",
-    ["python", "ingestion_vp/main.py"]
-)
+if now.hour == 1 and now.minute < 10:
+    run_step(
+        "ingestion_vp",
+        ["python", "ingestion_vp/main.py"]
+    )
 
 run_step(
     "dbt build",

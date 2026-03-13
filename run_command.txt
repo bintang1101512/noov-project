@@ -1,4 +1,4 @@
-docker run --name ingest_container `
+docker run --name pipeline-image-v2-container `
 --env-file ../.env `
 -v C:\Users\risky\AppData\Roaming\gcloud:/root/.config/gcloud `
-ingestion-app
+pipeline-image-v2

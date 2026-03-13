@@ -45,7 +45,9 @@ select
     c.city AS user_city,
     c.postcode AS user_postcode,
     c.region AS user_region,
-    c.referral_code
+    c.referral_code,
+    d.partner_account,
+    d.contact_legal_name
     
 from {{ ref("stg_transaction") }} as a
 left join {{ ref("stg_box") }} as b

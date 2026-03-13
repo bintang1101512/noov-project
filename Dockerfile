@@ -10,6 +10,6 @@ RUN pip install dbt-bigquery
 
 COPY . .
 
-WORKDIR /app
+ENV DBT_PROFILES_DIR=/app/transform
 
 CMD ["python", "pipeline.py"]
