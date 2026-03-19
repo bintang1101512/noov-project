@@ -8,7 +8,10 @@
             "data_type": "timestamp",
             "granularity": "day"
         },
-        cluster_by=['ta_id']
+        cluster_by=['ta_id'],
+        incremental_predicates=[
+            "DBT_INTERNAL_DEST.updated_at >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)"
+        ]
     )
 }}
 
@@ -17,7 +20,7 @@ with source as(
     from {{ source('source', 'raw_api') }}
 
     {% if is_incremental() %}
-    where ingested_at >= timestamp_sub(current_timestamp(), interval 1 day)
+    where ingested_at >= timestamp_sub(current_timestamp(), interval 2 hour)
     
     {% endif %}
 ),

@@ -8,7 +8,10 @@
             "data_type": "timestamp",
             "granularity": "day"
         },
-        cluster_by=['ta_id']
+        cluster_by=['ta_id'],
+        incremental_predicates=[
+            "DBT_INTERNAL_DEST.updated_at >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)"
+        ]
     )
 }}
 
