@@ -15,20 +15,24 @@
     )
 }}
 
-with source as(
+with source as (
+
     select *
     from {{ source('source', 'raw_api') }}
 
     {% if is_incremental() %}
-    where ingested_at >= timestamp_sub(current_timestamp(), interval 1 day)
-    
+    -- 🔥 pakai ingested_at (lebih efisien)
+    where ingested_at >= timestamp_sub(current_timestamp(), interval 7 day)
     {% endif %}
+
 ),
 
-flatten as(
+flatten as (
+
     SELECT
       JSON_VALUE(payload, '$._id') AS _id,
-      JSON_VALUE(payload, '$.TA_ID') AS ta_id,
+      TRIM(JSON_VALUE(payload, '$.TA_ID')) AS ta_id,
+
       JSON_VALUE(u, '$.name') AS full_name,
       JSON_VALUE(u, '$.username') AS username,
       JSON_VALUE(u, '$.user_type') AS user_type,
@@ -41,19 +45,35 @@ flatten as(
       JSON_VALUE(u, '$.country') AS country,
       JSON_VALUE(u, '$.currency') AS currency,
       JSON_VALUE(u, '$.referral_code') AS referral_code,
+
       TIMESTAMP(JSON_VALUE(payload, '$.createdAt')) AS created_at,
       TIMESTAMP(JSON_VALUE(payload, '$.updatedAt')) AS updated_at,
+
       ingested_at
-  FROM source,
-  UNNEST(JSON_QUERY_ARRAY(payload, '$.user')) AS u
+
+    FROM source,
+    UNNEST(JSON_QUERY_ARRAY(payload, '$.user')) AS u
+
 ),
 
-dedup as(
-    select *, row_number() over(
-        partition by ta_id
-        ORDER BY updated_at DESC
-    ) as rn
-    from flatten
+filtered as (
+    select * from flatten
+    {% if is_incremental() %}
+    where updated_at >= timestamp_sub(current_timestamp(), interval 7 day)
+    {% endif %}
+),
+
+
+dedup as (
+
+    select *,
+      ROW_NUMBER() OVER (
+        PARTITION BY ta_id
+        ORDER BY updated_at DESC, ingested_at DESC
+      ) as rn
+    from filtered
+    where ta_id is not null
+
 )
 
 select * except(rn)

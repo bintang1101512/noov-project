@@ -49,7 +49,29 @@ flatten as(
       JSON_VALUE(payload, '$.city') AS city,
       JSON_VALUE(payload, '$.region') AS region,
       JSON_VALUE(payload, '$.postcode') AS postcode,
-      JSON_VALUE(payload, '$.box_state') AS box_state
+      JSON_VALUE(payload, '$.box_state') AS box_state,
+
+      COALESCE(
+        ARRAY_TO_STRING(
+          ARRAY(
+            SELECT JSON_VALUE(err, '$.message')
+            FROM UNNEST(JSON_QUERY_ARRAY(payload, '$.box_error_message')) AS err
+          ),
+          ' | '
+        ),
+        'No Error'
+      ) AS box_error_messages,
+
+      COALESCE(
+        ARRAY_TO_STRING(
+          ARRAY(
+            SELECT JSON_VALUE(err, '$.code')
+            FROM UNNEST(JSON_QUERY_ARRAY(payload, '$.box_error_message')) AS err
+          ),
+          ' | '
+        ),
+        'No Error'
+      ) AS box_error_code
 
     from source
 ),
