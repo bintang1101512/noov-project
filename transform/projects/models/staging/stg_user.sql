@@ -10,7 +10,7 @@
         },
         cluster_by=['ta_id'],
         incremental_predicates=[
-            "DBT_INTERNAL_DEST.updated_at >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)"
+            "DBT_INTERNAL_DEST.updated_at >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)"
         ]
     )
 }}
@@ -22,7 +22,7 @@ with source as (
 
     {% if is_incremental() %}
     -- 🔥 pakai ingested_at (lebih efisien)
-    where ingested_at >= timestamp_sub(current_timestamp(), interval 7 day)
+    where ingested_at >= timestamp_sub(current_timestamp(), interval 1 day)
     {% endif %}
 
 ),
@@ -59,7 +59,7 @@ flatten as (
 filtered as (
     select * from flatten
     {% if is_incremental() %}
-    where updated_at >= timestamp_sub(current_timestamp(), interval 7 day)
+    where updated_at >= timestamp_sub(current_timestamp(), interval 1 day)
     {% endif %}
 ),
 

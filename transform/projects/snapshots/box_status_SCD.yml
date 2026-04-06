@@ -7,4 +7,6 @@ snapshots:
       strategy: check
       check_cols:
         - status
+        - box_error_code
+        - box_error_messages
       dbt_valid_to_current: "TIMESTAMP('9999-12-31')"
