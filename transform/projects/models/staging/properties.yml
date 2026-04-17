@@ -12,17 +12,6 @@ models:
                 config:
                     severity: warn
 
-    - name: stg_box
-      columns:
-        - name: ta_id
-          data_tests:
-            - unique:
-                config:
-                    severity: warn
-            - not_null:
-                config:
-                    severity: warn
-
     - name: stg_user
       columns:
         - name: ta_id

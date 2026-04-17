@@ -59,3 +59,18 @@ Internal Error
 [0m15:24:31.876077 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FC9D4BD0F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FC9BB7C3B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FCF1DF2140>]}
 [0m15:24:31.876492 [debug] [MainThread]: Flushing usage events
 [0m15:24:33.090039 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:18:01.739777 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000234CF8830E0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000234CB4EB250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000234D1A8BB10>]}
+
+
+============================== 09:18:01.748226 | aa2fb5f5-3c53-4a9d-921f-379c0f4ae9a1 ==============================
+[0m09:18:01.748226 [info ] [MainThread]: Running with dbt=1.11.6
+[0m09:18:01.749191 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\risky\\.dbt', 'invocation_command': 'dbt compile --select staging', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m09:18:01.749711 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\risky\noovoleum-project\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m09:18:01.750750 [debug] [MainThread]: Command `dbt compile` failed at 09:18:01.750585 after 0.39 seconds
+[0m09:18:01.751143 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000234D1AE0FC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000234D0997410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000234D1AF08D0>]}
+[0m09:18:01.751489 [debug] [MainThread]: Flushing usage events
+[0m09:18:03.004895 [debug] [MainThread]: An error was encountered while trying to flush usage events

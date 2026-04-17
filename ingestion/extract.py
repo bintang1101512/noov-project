@@ -4,6 +4,7 @@ import logging
 from datetime import datetime, UTC
 from config import API_URL, ROWS, MAX_RETRY
 from big_query_utils import get_last_date
+from flatten_json import flatten
 
 def extract(token):
 
