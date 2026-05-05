@@ -61,6 +61,7 @@ with base as (
         c.referral_code,
         d.partner_account,
         d.contact_legal_name,
+        e.model as box_model,
         CASE 
             WHEN a.user_brand_partner IS NULL 
               OR a.user_brand_partner = 'artotel' 
@@ -84,10 +85,7 @@ with base as (
 
     {% if is_incremental() %}
     where 
-        DATETIME(a.updated_at, "Asia/Jakarta") >= (
-            select DATETIME_SUB(MAX(updated_at), INTERVAL 2 HOUR)
-            from {{ this }}
-        )
+        a.updated_at >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 12 HOUR)
     {% endif %}
 )
 

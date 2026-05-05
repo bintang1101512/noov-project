@@ -1,6 +1,7 @@
 from google.cloud import bigquery
 from datetime import datetime, UTC
 from config import PROJECT, DATASET, TABLE, TABLE_REF
+from zoneinfo import ZoneInfo
 
 client = bigquery.Client(project=PROJECT)
 

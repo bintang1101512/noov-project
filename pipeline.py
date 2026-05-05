@@ -24,8 +24,15 @@ if now.hour == 1 and now.minute < 10:
         ["python", "ingestion_vp/main.py"]
     )
 
-run_step(
-    "dbt build",
-    ["dbt", "build"],
-    cwd="transform/projects"
-)
+if now.minute % 10 == 0:
+    run_step(
+        "dbt build all",
+        ["dbt", "build"],
+        cwd="transform/projects"
+    )
+else:
+    run_step(
+        "dbt build stg_box_status & snapshot",
+        ["dbt", "build", "--select", "staging.stg_box_status box_status_SCD"],
+        cwd="transform/projects"
+    )
